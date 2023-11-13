@@ -3,6 +3,9 @@
 #Cada elemento da lista é uma lista que contém a tarefa, seu tempo de duração e seus
 #pré-requisitos, respectivamente
 
+# Tarefa: Nome | Duracao | Requisitos | Start Date | End Date
+
+
 def criar_lista():
     lista = []
     return lista

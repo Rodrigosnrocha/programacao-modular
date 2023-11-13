@@ -8,22 +8,20 @@ def dias_no_mes(ano, mes):
 def set_dates(lista_tarefas, lista_inicio, ano):
     i = 0                                          #Contador da lista_inicio
     for tarefa in lista_tarefas:
-       duracao = tarefa[1]                         #Duracao da tarefa
-       dia_max = dias_no_mes(ano, int(lista_inicio[i][3:])) 
-                                                             
-       dia_termino = duracao + int(lista_inicio[i][:2])
-       mes_termino = int(lista_inicio[i][3:])
-       if dia_termino > dia_max:                   #Verifica se o dia de termino execedeu o numero maximo de dias naquele mes
-           dia_termino = dia_termino % dia_max
-           mes_termino += 1
-       
-       tarefa[1] = (lista_inicio[i], f'{dia_termino}/{mes_termino}') #Substitui a duracao por uma tupla contendo a data de inicio e termino
-       i += 1
-     
+        duracao = tarefa[1]                         #Duracao da tarefa
+        dia_max = dias_no_mes(ano, int(lista_inicio[i][3:]))
+
+        dia_termino = duracao + int(lista_inicio[i][:2])
+        mes_termino = int(lista_inicio[i][3:])
+        if dia_termino > dia_max:                   #Verifica se o dia de termino execedeu o numero maximo de dias naquele mes
+            dia_termino = dia_termino % dia_max
+            mes_termino += 1   
+        tarefa[1] = (lista_inicio[i], f'{dia_termino}/{mes_termino}') #Substitui a duracao por uma tupla contendo a data de inicio e termino
+        i += 1
     return lista_tarefas
 
-def find_successor():
+def find_successor(tarefa, lista_tarefas):
     return 0
 
-def critical_path():
+def critical_path(lista_tarefas):
     return 0

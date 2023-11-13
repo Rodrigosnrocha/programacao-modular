@@ -41,6 +41,10 @@ def set_duration(tarefa, tempo, list_tarefas):
 
 def update_prereqs(tarefa, prereq, list_tarefas):
     #adiciona, para cada tarefa, seus pré-requisitos
-    
+    i = 0
+    for t in list_tarefas:
+        if t[0] == tarefa:
+            t[2] = prereq
+        i += 1
     return list_tarefas #retorna lista atualizada com os pré-requisitos de cada tarefa
 

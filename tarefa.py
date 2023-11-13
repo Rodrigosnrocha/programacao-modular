@@ -31,7 +31,11 @@ def remove_task(tarefa, list_tarefas):
 
 def set_duration(tarefa, tempo, list_tarefas):
     #adiciona, para cada tarefa, seu tempo de duração
-    
+    i = 0
+    for t in list_tarefas:
+        if t[0] == tarefa:
+            t[1] = tempo
+        i += 1
     return list_tarefas #retorna lista atualizada com o tempo de duração de cada tarefa
 
 

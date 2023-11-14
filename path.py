@@ -1,5 +1,12 @@
 import calendar
 
+#acha o sucessor de uma tarefa especifica passada como parâmetro
+def find_successor(lista_tarefas, tarefa):
+    for el in lista_tarefas:
+        if el[2]==tarefa:
+            return el[0]
+    return -1  # se a tarefa nao tiver nenhum sucessor, retorna -1
+
 def dias_no_mes(ano, mes):
     _, num_dias = calendar.monthrange(ano, mes)
     return num_dias
@@ -19,9 +26,6 @@ def set_dates(lista_tarefas, lista_inicio, ano):
         tarefa[1] = (lista_inicio[i], f'{dia_termino}/{mes_termino}') #Substitui a duracao por uma tupla contendo a data de inicio e termino
         i += 1
     return lista_tarefas
-
-def find_successor(tarefa, lista_tarefas):
-    return 0
 
 def critical_path(lista_tarefas):
     return 0

@@ -2,10 +2,23 @@ import calendar
 
 #acha o sucessor de uma tarefa especifica passada como parâmetro
 def find_successor(lista_tarefas, tarefa):
+    list_sucessores = []
     for el in lista_tarefas:
-        if el[2]==tarefa:
-            return el[0]
-    return -1  # se a tarefa nao tiver nenhum sucessor, retorna -1
+        if type(el[2])==str:
+            if el[2]==tarefa:
+                list_sucessores.append(el[0])
+        elif type(el[2])==list:
+            for pred in el[2]:
+                if pred == tarefa:
+                    list_sucessores.append(el[0])
+    if len(list_sucessores)==0:   # se a tarefa nao tiver nenhum sucessor, retorna -1
+        return -1
+    elif len(list_sucessores)==1:  # se a tarefa tiver apenas um sucessor, retorna o proprio elemento, e não uma lista
+        for elem in list_sucessores:
+            return elem
+    else:
+        return list_sucessores
+
 
 def dias_no_mes(ano, mes):
     _, num_dias = calendar.monthrange(ano, mes)

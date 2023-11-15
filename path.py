@@ -32,8 +32,8 @@ def formatar_data(data):
     
     # Retorne a data formatada no formato dd/mm
     return f'{dia_formatado}/{mes_formatado}'
-#lista_inicio é uma lista onde cada elemento é uma string contendo a data de inicio no formato dd/mm
-
+    
+#data_incio é um dia no formato dd//mm que representa o inicio do projeto
 def set_dates(lista_tarefas, data_inicio, ano):    
     data_inicio = formatar_data(data_inicio)    
                                

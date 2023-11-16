@@ -34,59 +34,51 @@ def formatar_data(data):
     return f'{dia_formatado}/{mes_formatado}'
     
 #data_incio é um dia no formato dd//mm que representa o inicio do projeto
-def set_dates(lista_tarefas, data_inicio, ano):    
-    data_inicio = formatar_data(data_inicio)    
-                               
+def set_dates(lista_tarefas, inicio, ano):
+    def calcula_data_termino(dia_inicio, duracao):
+        dia_inicio = formatar_data(dia_inicio)
+        dia_termino = int(dia_inicio[:2]) + duracao
+        mes_termino = int(dia_inicio[3:])
+        dia_max = dias_no_mes(ano, mes_termino)
+        if dia_termino > dia_max:
+            dia_termino = dia_termino % dia_max
+            mes_termino += 1
+        return f'{dia_termino}/{mes_termino}'
+
     for tarefa in lista_tarefas:
-        duracao = tarefa[1]  
+        duracao = tarefa[1]
         pre_requisito = tarefa[2]
-        
-        if pre_requisito == '':              #Verifica se a tarefa nao tem pre-requisito
-            dia_inicio = data_inicio
-            dia_termino = duracao + int(data_inicio[:2])
-            mes_termino = int(data_inicio[3:])
-            dia_max = dias_no_mes(ano, mes_termino)
-     
-        else:                                 
-            if type(pre_requisito) == list:     #Verifica se o pre-requisito e uma lista
-                datas_preReq = []
+
+        if pre_requisito == '':
+            data_termino = calcula_data_termino(inicio, duracao)
+        else:
+            if type(pre_requisito) == list:
+                datas_pre_req = []
                 for el in lista_tarefas:
                     for predecessora in pre_requisito:
                         if el[0] == predecessora:
-                           dia_inicio = formatar_data(el[1][1])
-                           datas_preReq.append(dia_inicio)
-                maior_mes = int(datas_preReq[0][3:])
-                maior_dia = int(datas_preReq[0][:2])
-                
-                for datas in datas_preReq:
+                            inicio = formatar_data(el[1][1])
+                            datas_pre_req.append(inicio)
+                maior_mes = int(datas_pre_req[0][3:])
+                maior_dia = int(datas_pre_req[0][:2])
+
+                for datas in datas_pre_req:
                     mes = int(datas[3:])
                     dia = int(datas[:2])
-                    if mes > maior_mes:
+                    if mes > maior_mes or (mes == maior_mes and dia > maior_dia):
                         maior_mes = mes
                         maior_dia = dia
-                    elif mes == maior_mes:
-                        if dia > maior_dia:
-                            maior_dia = dia                          
-                dia_inicio = formatar_data(f'{maior_dia}/{maior_mes}')
-                dia_termino = duracao + maior_dia
-                mes_termino = maior_mes
-                dia_max = dias_no_mes(ano, mes_termino)
-                            
+
+                inicio = formatar_data(f'{maior_dia}/{maior_mes}')
+                data_termino = calcula_data_termino(inicio, duracao)
             else:
                 for el in lista_tarefas:
                     if el[0] == pre_requisito:
-                       dia_inicio = formatar_data(el[1][1])
-                       dia_termino = duracao + int(dia_inicio[:2])
-                       mes_termino = int(dia_inicio[3:])
-                       dia_max = dias_no_mes(ano, mes_termino)
-                      
-        
-        
-        if dia_termino > dia_max:                   #Verifica se o dia de termino execedeu o numero maximo de dias naquele mes
-           dia_termino = dia_termino % dia_max
-           mes_termino += 1   
-        
-        tarefa[1] = (dia_inicio, formatar_data(f'{dia_termino}/{mes_termino}'))  #Substitui a duracao por uma tupla contendo a data de inicio e termino
+                        inicio = el[1][1]
+                        data_termino = calcula_data_termino(inicio, duracao)
+
+        tarefa[1] = (inicio, formatar_data(data_termino))
+
     return lista_tarefas
 
 def critical_path(lista_tarefas):

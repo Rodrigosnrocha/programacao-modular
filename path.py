@@ -35,7 +35,7 @@ def formatar_data(data):
     
 #data_incio é um dia no formato dd//mm que representa o inicio do projeto
 def set_dates(lista_tarefas, inicio, ano):
-    def calcula_data_termino(dia_inicio, duracao):
+    def calcula_data_termino(dia_inicio, duracao): 
         dia_inicio = formatar_data(dia_inicio)
         dia_termino = int(dia_inicio[:2]) + duracao
         mes_termino = int(dia_inicio[3:])
@@ -49,7 +49,7 @@ def set_dates(lista_tarefas, inicio, ano):
         duracao = tarefa[1]
         pre_requisito = tarefa[2]
 
-        if pre_requisito == '':
+        if pre_requisito == '':     #Se a tarefa nao tiver pre-requisito
             data_termino = calcula_data_termino(inicio, duracao)
         else:
             if type(pre_requisito) == list:
@@ -77,9 +77,31 @@ def set_dates(lista_tarefas, inicio, ano):
                         inicio = el[1][1]
                         data_termino = calcula_data_termino(inicio, duracao)
 
-        tarefa[1] = (inicio, formatar_data(data_termino))
+        tarefa[1] = (inicio, formatar_data(data_termino)) #Substitui a duracao com a data de inicio/termino
 
     return lista_tarefas
 
 def critical_path(lista_tarefas):
-    return 0
+    def compara_datas(tarefa1, tarefa2):
+        dia1 = int(tarefa1[1][0][:2])
+        mes1 = int(tarefa1[1][0][3:])
+        
+        dia2 = int(tarefa2[1][1][:2])
+        mes2 = int(tarefa2[1][1][3:])
+        
+        if mes1 == mes2 and dia1 == dia2:
+            return True
+    
+        return False
+    cam_crit = []
+    cam_crit.append(lista_tarefas[0])
+    for tarefa in lista_tarefas:
+        sucessores = find_successor(lista_tarefas, tarefa[0])
+        
+        if sucessores != -1 and compara_datas(tarefa, cam_crit[len(cam_crit) - 1]): #Verifica se a data de inicio da tarefa é igual a data de termino da ultima tarefa no cam_crit
+            cam_crit.append(tarefa)
+        
+    
+    cam_crit.append(lista_tarefas[-1])
+            
+    return cam_crit #Retorna uma lista com o caminho critico

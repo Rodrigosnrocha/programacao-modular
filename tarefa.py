@@ -6,6 +6,29 @@
 # Tarefa: Nome | Duracao | Requisitos | Start Date | End Date
 import Modulo_reutilizavel_lista as lista
 
+
+def criar_lista():
+    lista = []
+    return lista
+
+def adicionar_elemento(lista, elemento):
+    lista.append(elemento)
+    return
+
+def remove_task(tarefa, lista_tarefas):
+    lista_copia = lista_tarefas.copy()  # Crie uma cópia da lista
+    
+    for el in lista_copia:
+        if type(el[2]) == list and tarefa[0] in el[2]:
+             lista.remover_elemento(el[2], tarefa[0])
+        elif el[2] == tarefa[0]:
+            el[2] = ''
+    
+    lista.remover_elemento(lista_copia, tarefa)
+     # Remova a tarefa da cópia
+    return lista_copia
+
+#Funções criar_lista, adicionar_elemento e remover_elemento fazem parte do módulo que será importado
 #Criar list_tarefas no programa principal com a função criar_lista do módulo reutilizavel
 
 def create_task(tarefa, list_tarefas):

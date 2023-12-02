@@ -8,11 +8,11 @@ def find_successor(lista_tarefas, tarefa):
     for el in lista_tarefas:
         if type(el[2])==str:
             if el[2]==tarefa:
-                lista.adicionar_elemento(list_sucessores,el[0])
+                lista.adicionar_elemento(list_sucessores,el)
         elif type(el[2])==list:
             for pred in el[2]:
                 if pred == tarefa:
-                    lista.adicionar_elemento(list_sucessores,el[0])
+                    lista.adicionar_elemento(list_sucessores,el)
     if len(list_sucessores)==0:   # se a tarefa nao tiver nenhum sucessor, retorna -1
         return -1
     elif len(list_sucessores)==1:  # se a tarefa tiver apenas um sucessor, retorna o proprio elemento, e não uma lista
@@ -59,7 +59,7 @@ def set_dates(lista_tarefas, inicio, ano):
                 for el in lista_tarefas:
                     for predecessora in pre_requisito:
                         if el[0] == predecessora:
-                            inicio = formatar_data(el[1][1])
+                            inicio = formatar_data(el[3][1])
                             lista.adicionar_elemento(datas_pre_req,inicio)
                 maior_mes = int(datas_pre_req[0][3:])
                 maior_dia = int(datas_pre_req[0][:2])
@@ -76,20 +76,20 @@ def set_dates(lista_tarefas, inicio, ano):
             else:
                 for el in lista_tarefas:
                     if el[0] == pre_requisito:
-                        inicio = el[1][1]
+                        inicio = el[3][1]
                         data_termino = calcula_data_termino(inicio, duracao)
 
-        tarefa[1] = (inicio, formatar_data(data_termino)) #Substitui a duracao com a data de inicio/termino
+        tarefa[3] = (inicio, formatar_data(data_termino)) #Substitui a duracao com a data de inicio/termino
 
     return lista_tarefas
 
 def critical_path(lista_tarefas):
     def compara_datas(tarefa1, tarefa2):
-        dia1 = int(tarefa1[1][0][:2])
-        mes1 = int(tarefa1[1][0][3:])
+        dia1 = int(tarefa1[3][0][:2])
+        mes1 = int(tarefa1[3][0][3:])
         
-        dia2 = int(tarefa2[1][1][:2])
-        mes2 = int(tarefa2[1][1][3:])
+        dia2 = int(tarefa2[3][1][:2])
+        mes2 = int(tarefa2[3][1][3:])
         
         if mes1 == mes2 and dia1 == dia2:
             return True

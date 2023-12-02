@@ -6,11 +6,11 @@ def find_successor(lista_tarefas, tarefa):
     for el in lista_tarefas:
         if type(el[2])==str:
             if el[2]==tarefa:
-                list_sucessores.append(el[0])
+                list_sucessores.append(el)
         elif type(el[2])==list:
             for pred in el[2]:
                 if pred == tarefa:
-                    list_sucessores.append(el[0])
+                    list_sucessores.append(el)
     if len(list_sucessores)==0:   # se a tarefa nao tiver nenhum sucessor, retorna -1
         return -1
     elif len(list_sucessores)==1:  # se a tarefa tiver apenas um sucessor, retorna o proprio elemento, e não uma lista

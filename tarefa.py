@@ -3,6 +3,9 @@
 #Cada elemento da lista é uma lista que contém a tarefa, seu tempo de duração e seus
 #pré-requisitos, respectivamente
 
+# Tarefa: Nome | Duracao | Requisitos | Start Date | End Date
+
+
 def criar_lista():
     lista = []
     return lista
@@ -28,12 +31,20 @@ def remove_task(tarefa, list_tarefas):
 
 def set_duration(tarefa, tempo, list_tarefas):
     #adiciona, para cada tarefa, seu tempo de duração
-    
+    i = 0
+    for t in list_tarefas:
+        if t[0] == tarefa:
+            t[1] = tempo
+        i += 1
     return list_tarefas #retorna lista atualizada com o tempo de duração de cada tarefa
 
 
 def update_prereqs(tarefa, prereq, list_tarefas):
     #adiciona, para cada tarefa, seus pré-requisitos
-    
+    i = 0
+    for t in list_tarefas:
+        if t[0] == tarefa:
+            t[2] = prereq
+        i += 1
     return list_tarefas #retorna lista atualizada com os pré-requisitos de cada tarefa
 

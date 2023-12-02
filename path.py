@@ -1,16 +1,18 @@
 import calendar
+import Modulo_reutilizavel_lista as lista
+
 
 #acha o sucessor de uma tarefa especifica passada como parâmetro
 def find_successor(lista_tarefas, tarefa):
-    list_sucessores = []
+    list_sucessores = lista.criar_lista()
     for el in lista_tarefas:
         if type(el[2])==str:
             if el[2]==tarefa:
-                list_sucessores.append(el[0])
+                lista.adicionar_elemento(list_sucessores,el[0])
         elif type(el[2])==list:
             for pred in el[2]:
                 if pred == tarefa:
-                    list_sucessores.append(el[0])
+                    lista.adicionar_elemento(list_sucessores,el[0])
     if len(list_sucessores)==0:   # se a tarefa nao tiver nenhum sucessor, retorna -1
         return -1
     elif len(list_sucessores)==1:  # se a tarefa tiver apenas um sucessor, retorna o proprio elemento, e não uma lista
@@ -53,12 +55,12 @@ def set_dates(lista_tarefas, inicio, ano):
             data_termino = calcula_data_termino(inicio, duracao)
         else:
             if type(pre_requisito) == list:
-                datas_pre_req = []
+                datas_pre_req = lista.criar_lista()
                 for el in lista_tarefas:
                     for predecessora in pre_requisito:
                         if el[0] == predecessora:
                             inicio = formatar_data(el[1][1])
-                            datas_pre_req.append(inicio)
+                            lista.adicionar_elemento(datas_pre_req,inicio)
                 maior_mes = int(datas_pre_req[0][3:])
                 maior_dia = int(datas_pre_req[0][:2])
 
@@ -93,15 +95,14 @@ def critical_path(lista_tarefas):
             return True
     
         return False
-    cam_crit = []
-    cam_crit.append(lista_tarefas[0])
+    cam_crit = lista.criar_lista()
+    lista.adicionar_elemento(cam_crit,lista_tarefas[0])
     for tarefa in lista_tarefas:
         sucessores = find_successor(lista_tarefas, tarefa[0])
         
         if sucessores != -1 and compara_datas(tarefa, cam_crit[len(cam_crit) - 1]): #Verifica se a data de inicio da tarefa é igual a data de termino da ultima tarefa no cam_crit
-            cam_crit.append(tarefa)
+            lista.adicionar_elemento(cam_crit,tarefa)
         
-    
-    cam_crit.append(lista_tarefas[-1])
+    lista.adicionar_elemento(cam_crit,lista_tarefas[-1])
             
     return cam_crit #Retorna uma lista com o caminho critico

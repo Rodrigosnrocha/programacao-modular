@@ -1,10 +1,12 @@
-#Lista de tarefas 
-#Importar módulo reutilizável de listas
-#Cada elemento da lista é uma lista que contém a tarefa, seu tempo de duração e seus
-#pré-requisitos, respectivamente
-
-# Tarefa: Nome | Duracao | Requisitos | Start Date | End Date
 import Modulo_reutilizavel_lista as lista
+
+def create_task(tarefa, lista_tarefas):
+    elemento = []
+    lista.adicionar_elemento(elemento, tarefa)
+    lista.adicionar_elemento(elemento, 0)
+    lista.adicionar_elemento(elemento, '')
+    lista.adicionar_elemento(lista_tarefas, elemento)
+    return 
 
 def remove_task(tarefa, lista_tarefas):
     lista_copia = lista_tarefas.copy()  # Crie uma cópia da lista
@@ -18,17 +20,6 @@ def remove_task(tarefa, lista_tarefas):
     lista.remover_elemento(lista_copia, tarefa)
      # Remova a tarefa da cópia
     return lista_copia
-
-#Funções criar_lista, adicionar_elemento e remover_elemento fazem parte do módulo que será importado
-#Criar list_tarefas no programa principal com a função criar_lista do módulo reutilizavel
-
-def create_task(tarefa, lista_tarefas):
-    lista.adicionar_elemento(lista_tarefas, tarefa)
-    return 
-
-def remove_task(tarefa, list_tarefas):
-    lista.remover_elemento(list_tarefas, tarefa)
-    return 
 
 def set_duration(tarefa, tempo, lista_tarefas):
     #adiciona, para cada tarefa, seu tempo de duração
@@ -45,7 +36,21 @@ def update_prereqs(tarefa, prereq, lista_tarefas):
     i = 0
     for t in lista_tarefas:
         if t[0] == tarefa:
-            t[2] = prereq
+            if (type(t[2])==list):
+                lista.adicionar_elemento(t[2],prereq)
+            else:
+                t[2] = []
+                lista.adicionar_elemento(t[2], prereq)
         i += 1
     return lista_tarefas #retorna lista atualizada com os pré-requisitos de cada tarefa
 
+
+#listaTarefas = []
+#create_task('dormir', listaTarefas)
+#print(listaTarefas)
+#listaTarefas = set_duration('dormir',2,listaTarefas)
+#print(listaTarefas)
+#listaTarefas = update_prereqs('dormir','comer',listaTarefas)
+#print(listaTarefas)
+#listaTarefas = update_prereqs('dormir', 'estudar', listaTarefas)
+#print(listaTarefas)

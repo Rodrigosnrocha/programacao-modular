@@ -6,15 +6,6 @@
 # Tarefa: Nome | Duracao | Requisitos | Start Date | End Date
 import Modulo_reutilizavel_lista as lista
 
-
-def criar_lista():
-    lista = []
-    return lista
-
-def adicionar_elemento(lista, elemento):
-    lista.append(elemento)
-    return
-
 def remove_task(tarefa, lista_tarefas):
     lista_copia = lista_tarefas.copy()  # Crie uma cópia da lista
     
@@ -42,7 +33,7 @@ def remove_task(tarefa, list_tarefas):
 def set_duration(tarefa, tempo, lista_tarefas):
     #adiciona, para cada tarefa, seu tempo de duração
     i = 0
-    for t in list_tarefas:
+    for t in lista_tarefas:
         if t[0] == tarefa:
             t[1] = tempo
         i += 1
@@ -52,7 +43,7 @@ def set_duration(tarefa, tempo, lista_tarefas):
 def update_prereqs(tarefa, prereq, lista_tarefas):
     #adiciona, para cada tarefa, seus pré-requisitos
     i = 0
-    for t in list_tarefas:
+    for t in lista_tarefas:
         if t[0] == tarefa:
             t[2] = prereq
         i += 1

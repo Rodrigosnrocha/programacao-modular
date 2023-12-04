@@ -25,4 +25,8 @@ path.set_dates(listaTarefas, "01/12", 2023)
 
 caminhoCritico = path.critical_path(listaTarefas)
 
-print(caminhoCritico)
+texto = f"Caminho crítico: {caminhoCritico[0][0]}"
+for i in caminhoCritico:
+    texto +=f", {i[0]}"
+
+print(texto)

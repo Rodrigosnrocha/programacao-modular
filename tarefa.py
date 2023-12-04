@@ -5,6 +5,7 @@ def create_task(tarefa, lista_tarefas):
     lista.adicionar_elemento(elemento, tarefa)
     lista.adicionar_elemento(elemento, 0)
     lista.adicionar_elemento(elemento, '')
+    lista.adicionar_elemento(elemento, ())
     lista.adicionar_elemento(lista_tarefas, elemento)
     return 
 

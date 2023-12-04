@@ -31,30 +31,30 @@ def remove_task(tarefa, lista_tarefas):
 #Funções criar_lista, adicionar_elemento e remover_elemento fazem parte do módulo que será importado
 #Criar list_tarefas no programa principal com a função criar_lista do módulo reutilizavel
 
-def create_task(tarefa, list_tarefas):
-    lista.adicionar_elemento(list_tarefas, tarefa)
+def create_task(tarefa, lista_tarefas):
+    lista.adicionar_elemento(lista_tarefas, tarefa)
     return 
 
 def remove_task(tarefa, list_tarefas):
     lista.remover_elemento(list_tarefas, tarefa)
     return 
 
-def set_duration(tarefa, tempo, list_tarefas):
+def set_duration(tarefa, tempo, lista_tarefas):
     #adiciona, para cada tarefa, seu tempo de duração
     i = 0
     for t in list_tarefas:
         if t[0] == tarefa:
             t[1] = tempo
         i += 1
-    return list_tarefas #retorna lista atualizada com o tempo de duração de cada tarefa
+    return lista_tarefas #retorna lista atualizada com o tempo de duração de cada tarefa
 
 
-def update_prereqs(tarefa, prereq, list_tarefas):
+def update_prereqs(tarefa, prereq, lista_tarefas):
     #adiciona, para cada tarefa, seus pré-requisitos
     i = 0
     for t in list_tarefas:
         if t[0] == tarefa:
             t[2] = prereq
         i += 1
-    return list_tarefas #retorna lista atualizada com os pré-requisitos de cada tarefa
+    return lista_tarefas #retorna lista atualizada com os pré-requisitos de cada tarefa
 
